@@ -10,4 +10,4 @@ class AddMedicineState(StatesGroup):
     dispensing_mode = State()
     farm_group = State()
     code_atx = State()
-
+    confirm = State()
