@@ -2,7 +2,7 @@ from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery   
 from database.models import Medicines
 from aiogram.fsm.context import FSMContext
-from keyboards.inline_btns import search_results_btn
+from keyboards.inline_btns import search_results_btn, analogs_btn
 
 router = Router()
 
@@ -40,7 +40,8 @@ async def process_medicine_callback(callback: CallbackQuery, state: FSMContext):
         f"Dori davlati: {medicine.state}\n"
         f"Dorini dorixonada beirsh tartibi: {medicine.dispensing_mode}\n"
         f"Dorini farm guruhi: {medicine.farm_group}\n"
-        f"Dorini ATX kod: {medicine.code_atx}\n"
+        f"Dorini ATX kod: {medicine.code_atx}\n",
+        reply_markup=analogs_btn(medicine.code_atx)
     )   
     await callback.answer()
 
