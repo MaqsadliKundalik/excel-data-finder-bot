@@ -6,7 +6,8 @@ def search_results_btn(results: List[Medicines]):
     inline_markup = InlineKeyboardBuilder()
     for med in results:
         inline_markup.button(text=med.trade_name, callback_data=f"med_{med.id}")
-    inline_markup.adjust(1).as_markup() 
+    inline_markup.adjust(1)
+    inline_markup = inline_markup.as_markup() 
     return inline_markup    
 
 def del_medicine_btn(med_id: int):
