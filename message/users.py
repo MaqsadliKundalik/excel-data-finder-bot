@@ -1,15 +1,21 @@
 from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery   
+from aiogram.types import Message, CallbackQuery, ReplyKeyboardRemove   
 from database.models import Medicines
 from aiogram.fsm.context import FSMContext
+from aiogram.filters import Command
 from keyboards.inline_btns import search_results_btn, analogs_btn
 
+
 router = Router()
+
+@router.message(Command("start"))
+async def admin(message: Message):
+    await message.answer("Ushbu bot sizga O'zbekistonda mavjud dori vositalari va ularning analoglari haqida ma'lumot beradi.\n\nBotdan foydalanish uchun dorining savdo nomini kiriting.", reply_markup=ReplyKeyboardRemove())
 
 @router.message()
 async def get_medicines(message: Message):
     if not message.text:
-        await message.answer("Илтимос, қидирилаётган дори номини матн шаклида юборинг.")
+        await message.answer("Qidiruv uchun dorini nomini kiriting.")
         return  
     search_query = message.text.strip().lower()
     
@@ -33,15 +39,16 @@ async def process_medicine_callback(callback: CallbackQuery, state: FSMContext):
     medicine_id = callback.data.split("_")[1]
     medicine = await Medicines.get(id=medicine_id)
     await callback.message.answer(
-        f"Dori nomi: {medicine.trade_name}\n"
-        f"Dori MNN: {medicine.mnn}\n"
-        f"Dori chiqairlish shakli: {medicine.form}\n"
-        f"Dori ro'yhatdan o'tkazish raqami: {medicine.registration_number}\n"
-        f"Dori davlati: {medicine.state}\n"
-        f"Dorini dorixonada beirsh tartibi: {medicine.dispensing_mode}\n"
-        f"Dorini farm guruhi: {medicine.farm_group}\n"
-        f"Dorini ATX kod: {medicine.code_atx}\n",
-        reply_markup=analogs_btn(medicine.code_atx)
+        f"<b>Dori nomi:</b> {medicine.trade_name}\n"
+        f"<b>Dori MNN:</b> {medicine.mnn}\n"
+        f"<b>Dori chiqairlish shakli:</b> {medicine.form}\n"
+        f"<b>Dori ro'yhatdan o'tkazish raqami:</b> {medicine.registration_number}\n"
+        f"<b>Dori davlati:</b> {medicine.state}\n"
+        f"<b>Dorini dorixonada beirsh tartibi:</b> {medicine.dispensing_mode}\n"
+        f"<b>Dorini farm guruhi:</b> {medicine.farm_group}\n"
+        f"<b>Dorini ATX kod:</b> {medicine.code_atx}\n",
+        reply_markup=analogs_btn(medicine.code_atx),
+        parse_mode="HTML"
     )   
     await callback.answer()
 
