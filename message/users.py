@@ -1,5 +1,5 @@
 from aiogram import Router, F
-from aiogram.types import Message   
+from aiogram.types import Message, CallbackQuery   
 from database.models import Medicines
 from keyboards.inline_btns import search_results_btn
 
