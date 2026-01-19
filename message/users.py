@@ -38,10 +38,9 @@ async def process_medicine_callback(callback: CallbackQuery, state: FSMContext):
         f"Dori chiqairlish shakli: {medicine.form}\n"
         f"Dori ro'yhatdan o'tkazish raqami: {medicine.registration_number}\n"
         f"Dori davlati: {medicine.state}\n"
-        f"Dorini dorixonada b   eirsh tartibi: {medicine.dispensing_mode}\n"
+        f"Dorini dorixonada beirsh tartibi: {medicine.dispensing_mode}\n"
         f"Dorini farm guruhi: {medicine.farm_group}\n"
-        f"Dorini ATX kod: {medicine.code_atx}\n",
-        "-------------------------"
+        f"Dorini ATX kod: {medicine.code_atx}\n"
     )   
     await callback.answer()
 
