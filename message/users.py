@@ -47,7 +47,7 @@ async def process_medicine_callback(callback: CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data.startswith("analogs_"))
 async def process_analogs_callback(callback: CallbackQuery, state: FSMContext):
-    medicine_code_atx = int(callback.data.split("_")[1])
+    medicine_code_atx = callback.data.split("_")[1]
     medicines = await Medicines.filter(code_atx=medicine_code_atx)
     await callback.message.answer("Qidiruv natijalari:", reply_markup=search_results_btn(medicines))
     await callback.answer() 
