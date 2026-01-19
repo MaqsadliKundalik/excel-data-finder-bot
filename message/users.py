@@ -1,4 +1,4 @@
-from aiogram import Router
+from aiogram import Router, F
 from aiogram.types import Message   
 from database.models import Medicines
 from keyboards.inline_btns import search_results_btn
@@ -50,4 +50,3 @@ async def process_analogs_callback(callback: CallbackQuery, state: FSMContext):
     medicines = await Medicines.filter(code_atx=medicine_code_atx)
     await callback.message.answer("Qidiruv natijalari:", reply_markup=search_results_btn(medicines))
     await callback.answer() 
-    
