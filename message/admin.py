@@ -107,10 +107,10 @@ async def process_confirm(message: Message, state: FSMContext):
         data = await state.get_data()
         await Medicines.create(**data)
         await state.clear()
-        await message.answer("Dori qo'shildi!")
+        await message.answer("Dori qo'shildi!", reply_markup=admin_markup)
     else:
         await state.clear()
-        await message.answer("Dori qo'shilmadi!")
+        await message.answer("Dori qo'shilmadi!", reply_markup=admin_markup)
 
 @router.message(F.chat.id == ADMIN_ID)
 async def search_medicine(message: Message, state: FSMContext):
