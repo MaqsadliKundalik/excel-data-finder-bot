@@ -1,6 +1,7 @@
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery   
 from database.models import Medicines
+from aiogram.fsm.context import FSMContext
 from keyboards.inline_btns import search_results_btn
 
 router = Router()
